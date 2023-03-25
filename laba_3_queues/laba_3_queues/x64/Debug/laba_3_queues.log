@@ -1,2 +1,3 @@
 ﻿  Source.cpp
+D:\ОАиП 2.0\laba_3_queues\laba_3_queues\Source.cpp(33,32): warning C4101: element: неиспользованная локальная переменная
   laba_3_queues.vcxproj -> D:\ОАиП 2.0\laba_3_queues\x64\Debug\laba_3_queues.exe
