@@ -1,0 +1,9 @@
+﻿  Source.cpp
+D:\ОАиП 2.0\lab_4_opz\lab_4_ops\lab_4_ops\Source.cpp(6,1): warning C4005: _CRT_SECURE_NO_WARNINGS: изменение макроопределения
+D:\ОАиП 2.0\lab_4_opz\lab_4_ops\lab_4_ops\Source.cpp(6,1): message : "_CRT_SECURE_NO_WARNINGS" ранее объявлен в командной строке
+D:\ОАиП 2.0\lab_4_opz\lab_4_ops\lab_4_ops\Source.cpp(112,29): warning C4244: аргумент: преобразование "float" в "char", возможна потеря данных
+D:\ОАиП 2.0\lab_4_opz\lab_4_ops\lab_4_ops\Source.cpp(115,29): warning C4244: аргумент: преобразование "float" в "char", возможна потеря данных
+D:\ОАиП 2.0\lab_4_opz\lab_4_ops\lab_4_ops\Source.cpp(118,29): warning C4244: аргумент: преобразование "float" в "char", возможна потеря данных
+D:\ОАиП 2.0\lab_4_opz\lab_4_ops\lab_4_ops\Source.cpp(121,29): warning C4244: аргумент: преобразование "float" в "char", возможна потеря данных
+D:\ОАиП 2.0\lab_4_opz\lab_4_ops\lab_4_ops\Source.cpp(124,26): warning C4244: аргумент: преобразование "float" в "char", возможна потеря данных
+  lab_4_ops.vcxproj -> D:\ОАиП 2.0\lab_4_opz\lab_4_ops\x64\Debug\lab_4_ops.exe
