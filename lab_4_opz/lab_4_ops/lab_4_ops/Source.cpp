@@ -20,7 +20,11 @@ int precedence(char);
 int isSign(char);
 int isParenthesis(char);
 char top(Stack*);
-//float evaluatePostfix(char*);
+int evaluateToPostfix(Stack*, char*);
+void infixToPostfix(Stack*, char*, char*);
+void MemoryCleaning(Stack*);
+
+
 
 int main()
 {
@@ -30,20 +34,25 @@ int main()
 	char postfix[30];
 	Stack* signStack = new Stack;
 	int choice, len, postf_len = 0;
+	int result;
+	int isDigit;
 	
 
 	while (true) 
 	{
-		printf_s("\n 1 - Enter an expression  2 - Convert to reverse polish notation  3 - Examination  else - Exit\n");
+		printf_s("\n 1 - Enter an expression (alphabetic or integer)  2 - Convert to reverse polish notation  3 - Examination  else - Exit\n");
 		scanf("%d", &choice);
 		switch (choice)
 		{
 		case 1:
-	
+			postf_len = 0;
+			//MemoryCleaning(signStack);
+			memset(postfix, '\0', 30);
 			printf_s("Enter an expression: ");
 			//gets_s(infix);
 			//getchar();
 			scanf("%s", infix);
+			isDigit = 1;
 			len = my_strlen(infix);
 			break;
 
@@ -78,17 +87,19 @@ int main()
 					{
 						while (top(signStack) != '(')
 						{
-							postfix[j] = Pop(signStack);
+							postfix[postf_len] = Pop(signStack);
 							postf_len++;
 							j++;
 						}
 						//postfix[j] = '\0';
+						Pop(signStack);
 
 					}
 				}
 				else 
 				{
 					postfix[postf_len] = infix[i];
+					isDigit = 0;
 					postf_len++;
 				}
 			}
@@ -102,35 +113,26 @@ int main()
 			break;
 
 		case 3:
-			//signStack->next = NULL;
-			////int i;
-			//for (i = 0; postfix[i] != '\0'; i++) {
-			//	if (isdigit(postfix[i])) {
-			//		float sign1 = Pop(signStack);
-			//		float sign2 = Pop(signStack);
-			//		switch (postfix[i]) {
-			//		case'+':
-			//			Push(signStack, sign2 + sign2);
-			//			break;
-			//		case'-':
-			//			Push(signStack, sign2 - sign1);
-			//			break;
-			//		case'*':
-			//			Push(signStack, sign2 * sign1);
-			//			break;
-			//		case'/':
-			//			Push(signStack, sign2 / sign1);
-			//			break;
-			//		case'^':
-			//			Push(signStack, pow(sign2, sign1));
-			//			break;
-			//		}
-			//	}
-			//}
-			//return Pop(signStack);
+			if (isDigit) 
+			{
+				result = evaluateToPostfix(head, postfix);
+				printf_s("Result is: %d\n", result);
+				break;
 
+			}
+			for (i = 0; postfix[i] != '\0'; i++) 
+			{
+				if (isSign(postfix[i]) || isdigit(postfix[i]))
+					continue;
+				printf_s("Enter value (%c): ", postfix[i]);
+				getchar();
+				scanf("%c", &postfix[i]);
+
+			}
+			result = evaluateToPostfix(head, postfix);
+			printf_s("Result is: %d\n", result);
 			break;
-	
+
 		default:
 			printf_s("Error: incorrect input!!!");
 			return 0;
@@ -213,7 +215,57 @@ char top(Stack* head)
 	}
 	else 
 	{
-		return head->info;
+		Stack* tempNode = head->next;
+		return tempNode->info;
 	}
 
 }
+
+int evaluateToPostfix(Stack* head, char postfix[]) {
+	Stack* signStack = new Stack;
+	int i;
+	for (i = 0; postfix[i] != '\0'; i++) 
+	{
+		if (isdigit(postfix[i])) 
+		{
+			Push(signStack, postfix[i] - '0');
+		}
+		else if (isSign(postfix[i])) 
+		{
+			int sign1 = Pop(signStack);
+			int sign2 = Pop(signStack);
+			switch (postfix[i]) 
+			{
+				case'+': 
+					Push(signStack, sign2 + sign1);
+					break;
+				case'-':
+					Push(signStack, sign2 - sign2);
+					break;
+				case'*':
+					Push(signStack, sign2 * sign1);
+					break;
+				case'/':
+					Push(signStack, sign2 / sign1);
+					break;
+				case'^':
+					Push(signStack, pow(sign2, sign1));
+					break;
+			}
+
+		}
+
+	}
+	return Pop(signStack);
+}
+
+void MemoryCleaning(Stack* head)
+{
+	while (head->next != NULL)
+		Pop(head);
+
+}
+
+
+
+
