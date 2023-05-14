@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<iostream>
-#include<iomanip>
+//#include<iomanip>
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -12,6 +12,7 @@ struct Stack
 	char info;
 	Stack* next;
 };
+
 struct NumberStack
 {
 	float num;
@@ -30,9 +31,8 @@ char top(Stack*);
 char top(NumberStack*);
 float evaluateToPostfix(Stack*, char*);
 float evaluate(NumberStack*, char);
-void infixToPostfix(Stack*, char*, char*);
+//void infixToPostfix(Stack*, char*, char*);
 void MemoryCleaning(Stack*);
-
 
 
 int main()
@@ -43,29 +43,33 @@ int main()
 	char postfix[30];
 	Stack* signStack = new Stack;
 	NumberStack* numberStack = new NumberStack;
-	int choice, len, postf_len = 0;
+	int choice, len = 0, postf_len = 0;
 	float result;
 	int isDigit;
 	
 
 	while (true) 
 	{
-		printf_s("\n 1 - Enter an expression (alphabetic or integer)  2 - Convert to reverse polish notation  3 - Examination  else - Exit\n");
+		printf_s("\n 1 - Enter an expression (alphabetic or integer)  2 - Convert to reverse polish notation  3 - Examination  4 - Exit\n");
 		scanf("%d", &choice);
 		switch (choice)
 		{
 		case 1:
-			postf_len = 0;
 			memset(postfix, '\0', 30);
 			printf_s("Enter an expression: ");
-			scanf("%s", infix);
+			scanf("%s", &infix);
 			isDigit = 1;
 			len = my_strlen(infix);
 			break;
 
 		case 2:
+			if (len == 0) {
+				printf("You don't entered an expression!\n");
+				break;
+			} 
 			signStack->next = NULL;
 			int i, j;
+			postf_len = 0;
 			memset(postfix, '\0', 30);
 			for (i = 0, j = 0; infix[i] != '\0'; i++)
 			{
@@ -150,7 +154,7 @@ int main()
 			printf_s("Result is: %4.2f\n", result);
 			break;
 
-		default:
+		case 4:
 			printf_s("Error: incorrect input!!!");
 			return 0;
 		}
@@ -344,7 +348,6 @@ void MemoryCleaning(Stack* head)
 		Pop(head);
 
 }
-
 
 
 
